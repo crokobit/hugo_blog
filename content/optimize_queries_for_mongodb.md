@@ -29,11 +29,24 @@ optimis_reporting_production.raw_cases                        query        {"cli
 
 ```
 
+
 ## mlogfilter 
 
 filte the log by query time, specific operation or collection
 mlogfilter mongodb.log --slow 10000 --word optimis_reporting_production.raw_visits --operation query
 
 
+
 # add index
 1. check ram related things
+
+check index now
+db.system.indexes.find()
+
+change the data umber showed from find
+http://stackoverflow.com/questions/3705517/how-to-print-out-more-than-20-items-documents-in-mongodbs-shell
+DBQuery.shellBatchSize = 300
+
+
+see the size of each index
+http://jasonwilder.com/blog/2012/02/08/optimizing-mongodb-indexes/
