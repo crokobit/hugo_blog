@@ -45,14 +45,12 @@ official guide seems suggest that all index size + working set < RAM size.
 check index now
 db.system.indexes.find()
 
-change the data umber showed from find
+change the data number showed from find
 http://stackoverflow.com/questions/3705517/how-to-print-out-more-than-20-items-documents-in-mongodbs-shell
 DBQuery.shellBatchSize = 300
 
-
 see the size of each index
 http://jasonwilder.com/blog/2012/02/08/optimizing-mongodb-indexes/
-
 
 the operation of with indexed queries
 http://stackoverflow.com/questions/2811299/mongodb-index-ram-relationship
@@ -116,4 +114,22 @@ we have replication set
 Defragmentation
 
 upgrade mongodb
+
+use db.currentOp() to see the background job. Can use that for seeing the progress of creating index.
+
+# add index throgh mongoid
+
+add code related to adding or deleting index
+run below code to remove incosistant code or add extra index
+```
+bundle exec rake db:mongoid:remove_undefined_indexes RAILS_ENV=production
+bundle exec rake db:mongoid:create_indexes RAILS_ENV=production
+```
+error may occured if already the index with different option already created. Need to add debug code to gem mongoid for debugging, for getting model name and database name and options.
+
+## lock
+
+have write lock  when deleting index
+have global lock（read and write lock, all mongodb） when deleting db
+can add index under background, so have no lock
 
