@@ -4,6 +4,13 @@ draft = true
 title = "chef"
 
 +++
+#note of following guide
+https://learn.chef.io/tutorials/
+Learn the Chef basics
+Learn to manage a node
+Learn to manage a basic web application
+
+
 Generating chef repo
 Usually this is done by download starter kit form chef server. The setting will be included automatically.
 - chef generate repo ~/chef-repo
@@ -64,6 +71,8 @@ include recipe in cookbook/recipes/default.rb
 However, dependency cookbook must upload to Chef server to set the node.
 
 in xxx bookbook, berks install will fetch dependency cookbooks to local env. Saving under ./berkshelf/cookbooks/
+I can not understand why it need to fetch the dependency cookbooks to local...
+under xxx cookbook folder. cookbook/xxx/
 - berks install
 then, use berk upload to upload cookbooks, dependency cookbooks included, 
 - berks upload
@@ -80,7 +89,7 @@ generate a key to encrypt databag item
 uploading to node use scp command.
 - scp -i ~/.ssh/my.pem /tmp/encrypted_data_bag_secret ubuntu@52.10.205.36:/etc/chef
 
-creating data baf at chef server. (will do nothing at local)
+creating data bag at chef server. (will do nothing at local)
 - knife data bag create passwords
 
 create local data.
@@ -102,6 +111,15 @@ No need to specify the run list, cookbook, because it is set up by bootstraping.
 'sudo chef-client' is nessary for reapply cookbook. Without that, knife ssh just update cookbook, not apply it.
 
 Node object is a object that contains its information, saved in chef server. The object will be loaded to node's memory when knife xxx. ? (link)[https://docs.chef.io/attributes.html#automatic-ohai]
+
+delete cookbook from Chef server
+- knife cookbook delete <cookbook-name>
+remove berkshelf cookbook locally
+- rm -r ~/.berkshelf/cookbooks
+delete repo
+- rm -r ~/chef-repo
+Delete the node from the Chef server
+- knife node delete web_app_ubuntu --yes
 
 Question:
 seems the chef server is set at chef workstation by starter kit.
