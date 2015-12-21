@@ -9,6 +9,7 @@ https://learn.chef.io/tutorials/
 Learn the Chef basics
 Learn to manage a node
 Learn to manage a basic web application
+Learn to develop your infrastructure code locally
 
 
 Generating chef repo
@@ -56,7 +57,7 @@ chef will update the cookbook form chef supermarcket by the version.
 ~> x.y.z means greate than x.y but smaller than x.y+1 . z changes means bug fixes or patches. 
 Generating recipe
 - chef generate recipe cookbooks/awesome_customers user
-Defining customized nofe attributes
+Defining customized node attributes
 - chef generate attribute cookbooks/awesome_customers default
 
 DRY the reusable content to attribute/ , use node['xxx'] to access.
@@ -92,7 +93,7 @@ uploading to node use scp command.
 creating data bag at chef server. (will do nothing at local)
 - knife data bag create passwords
 
-create local data.
+create local data. p.s. Not in cookbook! but in chef-repo, chef-repo/data_bags/passwords/, data bags are used by everybody cookbooks
 - mkdir databags/passwords
 
 create data json file in databags/passwords
@@ -121,7 +122,43 @@ delete repo
 Delete the node from the Chef server
 - knife node delete web_app_ubuntu --yes
 
-Question:
-seems the chef server is set at chef workstation by starter kit.
-A: Settings in .chef
+# Test it locally
+Test Kitchen enables you to test cookboos in a temporary environment.
 
+install vagrant and virtual-box
+http://sourabhbajaj.com/mac-setup/Vagrant/README.html
+
+.kitchen.yml will be created automacally when creating cookbook using `chef generate cookbook motd`
+
+modify .kitchen.yml in cookbook.
+driver specifies the software that manages the machine. We're using Vagrant.
+provisioner specifies how to run Chef.
+platforms specifies the target operating systems. 
+suites specifies what - e.g. cookbook - we want to apply to the virtual environment. 
+
+list virtual environments
+- kitchen list
+create virtual enviroments
+- kitchen create
+apply cookbook
+- kitchen converge, slower at first time because it need to install chef-client, will create instance if not created yet
+login to instance
+- kitchen login
+logout in instance after login
+- logout
+delete instance
+- kitchen destroy
+
+## assign ip, cookbook and data bag in .kitchen.yml
+driver:
+  network:
+  - ["private_network", {ip: "x.x.x.x"}]
+suits:
+  - name: default
+    data_bags_path: "../../data_bags"
+    run_list:
+      - recipe[awesome_customers::default]
+    attributes:
+      awesome_customers:
+        passwords:
+          secret_path: 'tmp/kitchen/encrypted_data_bag_secret'
