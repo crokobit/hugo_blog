@@ -149,7 +149,7 @@ logout in instance after login
 delete instance
 - kitchen destroy
 
-## assign ip, cookbook and data bag in .kitchen.yml
+# assign ip, cookbook and data bag in .kitchen.yml
 driver:
   network:
   - ["private_network", {ip: "x.x.x.x"}]
@@ -162,3 +162,30 @@ suits:
       awesome_customers:
         passwords:
           secret_path: 'tmp/kitchen/encrypted_data_bag_secret'
+
+# after upgrade passenger and ruby
+
+- sudo chef-client
+
+see Apache2 be starting or not
+- service --status-all
+
+see Apache or Passenger is the new one or not
+- ps aux
+
+restart Apache2
+- sudo service apache2 restart
+
+tell passenger to restart
+- touch tmp/restart.txt
+
+apache folder
+/etc/apache2/
+/etc/apache2/mods-available
+/etc/apache2/mods-enables
+
+
+
+##Debug log
+rails_proj/log/
+/var/apache2/log/...
