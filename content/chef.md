@@ -4,7 +4,7 @@ draft = true
 title = "chef"
 
 +++
-#note of following guide
+# NOTE OF FOLLOWING GUIDES
 https://learn.chef.io/tutorials/
 Learn the Chef basics
 Learn to manage a node
@@ -14,7 +14,8 @@ Learn to develop your infrastructure code locally
 
 Generating chef repo
 Usually this is done by download starter kit form chef server. The setting will be included automatically.
-- chef generate repo ~/chef-repo
+
+-  chef generate repo ~/chef-repo
 A chef resource describe the state of specific file, template or package. 
 A receipe is a file contains related resources, configure of web server, database server, or load balancer. 
 - chef-apply

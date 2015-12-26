@@ -52,8 +52,8 @@ include different Highlight.js to get different style.
 
 
 # themes
-o
-add you theme (detox here) to git, push it.
+
+remember to add you theme (detox here) to git, push it. Otherwise, will show empty page.
 need have at least one content.
 
 submodule
@@ -67,3 +67,4 @@ https://blog.carl.tw/2015/04/06/hello-hugo/
 
 #run locally
 hugo server --theme=hyde --buildDrafts
+will show empty page with no theme specified
