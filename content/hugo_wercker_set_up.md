@@ -64,3 +64,6 @@ https://discuss.gohugo.io/t/themes-dont-carry-over-on-github-hosting/1098/4
 
 # deploy without wercker
 https://blog.carl.tw/2015/04/06/hello-hugo/
+
+#run locally
+hugo server --theme=hyde --buildDrafts

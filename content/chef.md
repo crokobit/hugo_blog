@@ -184,6 +184,8 @@ apache folder
 /etc/apache2/mods-available
 /etc/apache2/mods-enables
 
+update .ruby-version
+
 
 
 ##Debug log
