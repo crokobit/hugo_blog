@@ -43,6 +43,20 @@ From Eloquent Ruby
 execute around make your code a bit easier to read. 
 e.g. say_with_block{ "something" }
 
+block can be applied when needing to lazy initializing.
+
+## Elogent ruby ch19
+
+split a function of different responsibility to anoteher class.
+
+can use block to pass the function into a class.
+
+can define constant lambda of that function.
+
+block holds all local variable of its outside scope.
+this will lenthen the life cycle of those object.
+clean the object - especially really big object, e.g. a super big array - the block no use.
+
 r.f.
 http://awaxman11.github.io/blog/2013/08/05/what-is-the-difference-between-a-block/
 http://railsfun.tw/t/method-block-yield-proc-lambda/110
