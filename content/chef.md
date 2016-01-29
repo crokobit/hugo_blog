@@ -192,3 +192,9 @@ update .ruby-version
 ##Debug log
 rails_proj/log/
 /var/apache2/log/...
+
+## chef-client dry run (why-run)
+
+chef-client --why-run
+chef-client -W
+
