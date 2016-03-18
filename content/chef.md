@@ -81,6 +81,12 @@ then, use berk upload to upload cookbooks, dependency cookbooks included,
 Check is success or not 
 - knife cookbook list
 
+#Chef Librian
+- librian-chef install
+
+#down all data from chef server
+- knife download /
+
 # encrypted data bag 
 values shared among nodes.
 can be encrypted optionally.
