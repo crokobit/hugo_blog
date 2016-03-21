@@ -1,3 +1,4 @@
+knife bootstrap ADDRESS --ssh-user vagrant --ssh-password 'vagrant' --sudo --use-sudo-password --node-name Reporting2Stg
 +++
 date = "2015-12-17T10:11:08+08:00"
 draft = true
