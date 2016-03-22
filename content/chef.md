@@ -185,6 +185,11 @@ suits:
 chef-client --why-run
 chef-client -W
 
+## set chef_env
+  - set in recipe
+  - set when bootstraping
+  - (https://docs.chef.io/environments.html)
+
 # after upgrade passenger and ruby
 
 - sudo chef-client
