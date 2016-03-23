@@ -1,4 +1,3 @@
-knife bootstrap ADDRESS --ssh-user vagrant --ssh-password 'vagrant' --sudo --use-sudo-password --node-name Reporting2Stg
 +++
 date = "2015-12-17T10:11:08+08:00"
 draft = true
@@ -31,6 +30,7 @@ title = "chef"
   - `chef-client` fetch recipes and start running chef on server.
   - `sudo chef-client --local-mode --runlist 'recipe[learn_chef_apache2]'`
   - runlist, deciding order and which recipe need to be run.
+  - debug `sudo chef-client -l debug`
 
 ## Chef server (Opscode server)
 
@@ -60,13 +60,14 @@ title = "chef"
 
 .erb means it can hold placeholders, filled in when recipe runs.
   https://supermarket.chef.io/cookbooks.
-
+_
 ## Node
   - Node object is a object that contains its information, saved in chef server. The object will be loaded to node's memory when knife xxx. ? (link)[https://docs.chef.io/attributes.html#automatic-ohai]
   - A node is a computer, VM, container, or a phycial server managed by a chef.
   - Bootstraping the node is the process installing chef-client on a node.
   - `knife boorstrasp` is a one time process, association the node to chef server and apply cookbook.
   - `knife bootstrap` will download the chef-client to and cookbook to node and apply the cookbook.
+  - set node.chef_environment by `knife bootstrap .... -E staging`
 
 later, if just needing to apply cookbook change, use knife ssh.
 
@@ -185,10 +186,16 @@ suits:
 chef-client --why-run
 chef-client -W
 
-## set chef_env
-  - set in recipe
-  - set when bootstraping
-  - (https://docs.chef.io/environments.html)
+## chef_environment
+  - set
+    - set in recipe
+    - set when bootstraping
+    - (https://docs.chef.io/environments.html)
+  - use
+    - node.chef_environment
+    - Specifically, chef_environment is a method on the Chef::Node object that returns the value of the node's environment. It is not a node attribute and should not be confused as such.
+    - (http://serverfault.com/questions/417696/how-to-find-the-chef-environment-in-a-recipe)
+
 
 # after upgrade passenger and ruby
 
