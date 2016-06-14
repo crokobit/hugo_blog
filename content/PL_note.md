@@ -214,3 +214,78 @@ type checking:
 evaluate
   if e is NONE -> false
   if e is SOME -> true
+
+# boolean operation
+syntax:
+e1 orelse e2
+type check:
+e1 -> t1 must be bollean type
+e2 -> t2 must be bollean type
+evaluation:
+if e1
+then true
+else e2
+
+andalso
+
+# the benefic of no mutation
+
+## aliasing v.s. copy
+
+A function may return a aliasing data or a copy of data. We can not knowing which it is in a mutation language.
+
+If that languange have mutation, programmer need to consider that changing a value may effect other code, or the value may be changed by other code.
+
+Also, in mutation language
+
+# datatype binding
+
+# three data type
+
+- each-of-type
+  * `int*bool`
+- one-of-type
+  * `option int`
+- recursive
+  * `int list` == `int` .. `list of (tl xxx)`
+
+# record type / expression ( each-of type )
+
+syntax:
+
+{ f1: e1, f2: e2 ... , fn:en }
+
+f1, f2... fn must be uniq
+
+type check:
+
+en -> tn
+the type of whole -> { f1:t1, f2:t2 ... fn:tn }
+
+evaluation
+
+en -> vn
+
+the value of whole -> { f1:v1, ... fn:vn }
+
+acessing
+
+`#f1 e`
+
+
+# Elixir
+
+Unlike SML, Elixir list can have different type. 
+
+Elixir Tuples, syntax: {}, save in memory. So it will be faster than list.
+
+Execute some method on list may need to traverse whole list, such as length.
+
+## bollean operation
+
+and == &&
+or == ||
+
+For elixir, both are short-circuit operators. They only execute the right side if the left side is not enough to determine the result.
+
+
