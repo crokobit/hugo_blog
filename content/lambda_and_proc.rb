@@ -44,15 +44,17 @@ proc_obj.class # => Proc
 
 # Proc.new == lambda, can parameterize
 # {} == do ... end, only can be used by putting after the function
-# &block for passing Block(Proc) into function
+# &proc (or &lambda) for passing Block into function, same effect as do...end or {}
 # yield = block.call
+# define proc parameter by &block, block will be Proc object in function
 # proc is object. block( do..end, {}, &block) isn't. So block can not be assigned to variable.
 # can only pass one block to function(syntax constraint), but can have multiple proc parameter.
-# can pass parameter to yield or &block.call
-# "code block has the scope where it is defined, it can use the variable can be found when defining itself"
+# can pass block to yield or &block.call
+# "code block has the scope where it is defined, it can use the variables which can be found when defining itself"
 # can use varaible excute the block and catch the return value for excute arround purpose.
 # The whole idea of execute around is that the caller is guaranteed that this will happen before the code block fires and that will happen after.
 # execute around make your code a bit easier to read. e.g. say_with_block{ "something" }
+# with return in the block, lambda return occurred on where you execute the block, proc return occurred on where you wrote that block
 
 =begin
 class Migration
