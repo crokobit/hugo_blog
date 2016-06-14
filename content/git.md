@@ -10,6 +10,11 @@ git cherry-pick --abort
 
 git rebase -i HEAD~3
 
+git checkout feature
+git rebase master
+
+move feature branch commit behind all commits of master branch
+
 rebase will modify history!
 
 can use as squash if using keyord fixup
