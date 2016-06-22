@@ -272,6 +272,26 @@ acessing
 
 `#f1 e`
 
+# syntax suger
+
+A syntax that can be transform to another basic syntax.
+
+Advantage: readibility, easier implementation
+
+## tuple  == resords
+
+(11,22,33) == { 1:11, 2:22, 3:33 }
+
+# data typing, customize one of type
+
+syntax:
+
+datatype dt1 = c1 of t1
+             | cn of tn
+
+cn is constructor, it is a function turn the data to dt1 type.
+e.g. c1 : t1 -> dt1
+
 
 # Elixir
 
