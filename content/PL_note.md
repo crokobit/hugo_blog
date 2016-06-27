@@ -282,7 +282,7 @@ Advantage: readibility, easier implementation
 
 (11,22,33) == { 1:11, 2:22, 3:33 }
 
-# data typing, customize one of type
+# data type binding, customize one of type
 
 syntax:
 
@@ -292,6 +292,40 @@ datatype dt1 = c1 of t1
 cn is constructor, it is a function turn the data to dt1 type.
 e.g. c1 : t1 -> dt1
 
+# constructor
+datatype dt1 = c1 of t1
+             | cn of tn
+
+syntax:
+
+e1 = c1 ev
+
+type checking:
+
+e1 has type dt1
+
+value:
+
+e1 has value "c1 ev"
+
+# pattern matching case with data type binding (customized one of type)
+
+syntax:
+
+case e0 of
+    p1 => e1
+  | pn => en
+
+type checking:
+
+  pn is pattern n, using constructor and variable to define
+  pn can set val type binding in en
+  e1 .. en should have same type
+
+evaluation
+  pn can set val binding in en
+  input match pn pattern
+  en => vn
 
 # Elixir
 
@@ -308,4 +342,6 @@ or == ||
 
 For elixir, both are short-circuit operators. They only execute the right side if the left side is not enough to determine the result.
 
-
+#h/k
+1. max value of +-*/ tree
+2. sum of link structure
