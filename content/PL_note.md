@@ -11,19 +11,19 @@ We can define every program language in three spect: syntax, type checking rule,
 
 Functional programming is a series of binding.
 
-static envirement(context) is the envirement with previous type binding.
+static environment(context) is the environment with previous type binding.
 
-dynamic envirement is the envirement with previous value binding
+dynamic environment is the environment with previous value binding
 
-The type checking execute in static envirement. The evaluate execute in dynamic envirement.
+The type checking execute in static environment. The evaluate execute in dynamic environment.
 
 # variable binding
 
 syntax: `val x0 = e0`
 
-type checking: on the base of the previous type binding of the static envirement, determine the type of e0. x0 is the type of e0.
+type checking: on the base of the previous type binding of the static environment, determine the type of e0. x0 is the type of e0.
 
-evaluate:  in dynamic envirement, with all previous binding values. determine the value of e0. the value of x0 is e0.
+evaluate:  in dynamic environment, with all previous binding values. determine the value of e0. the value of x0 is e0.
 
 Data With Type, Variable, Case When Else(Conditionals), If Else... all can defined by syntax, type checking rule, and evaluate rule.
 
@@ -47,7 +47,7 @@ xn is of the type tn.
 
 The syntax of a function type is “argument types” -> “result type” where the argument types are separated by * 
 
-Determine e type t in the static envirement extended (previous type binding) with the all xn type binding. 
+Determine e type t in the static environment extended (previous type binding) with the all xn type binding. 
 
 x0 is the type of (t1 * t2 * ... * tn) => t
 
@@ -296,6 +296,9 @@ e.g. c1 : t1 -> dt1
 datatype dt1 = c1 of t1
              | cn of tn
 
+cn is a constructor of type tn -> dt1
+if no 'of tn', just 'cn', then cn is a value of type dt1
+
 syntax:
 
 e1 = c1 ev
@@ -307,8 +310,9 @@ e1 has type dt1
 value:
 
 e1 has value "c1 ev"
+c1 as tag
 
-# pattern matching case with data type binding (customized one of type)
+# pattern matching case with data type binding (customized one of type) (constructor pattern)
 
 syntax:
 
@@ -319,13 +323,115 @@ case e0 of
 type checking:
 
   pn is pattern n, using constructor and variable to define
-  pn can set val type binding in en
+  pn can set variable type binding in en
   e1 .. en should have same type
 
 evaluation
-  pn can set val binding in en
-  input match pn pattern
-  en => vn
+  e0 => v0
+  if pn is the first pattern to match vn, then result is evaluation of en, in environment 'extended by the match'
+
+  if pn == Cn(x1,...,cn)
+  en is evaluated in a extended environment, x1 to v1 ... xn to vn is added. environment
+
+# alias
+
+syntax:
+
+  type at1 = t1;
+
+  at1 is type alias name;
+  t1 -> type 1
+
+# value binding with type checking
+
+syntax:
+  
+  val t : x = e
+
+type checking:
+
+  e has type t
+
+evaluation:
+
+  e -> v
+
+# NONE and SOME are constructor of option type !
+
+case intoption of
+  NONE => 0
+  SOME i => i
+
+# [] and :: are constructor of list type
+
+# list are option are constructor that take parameter to construct type
+
+# polymorphic datatype
+
+datatype that take more than two constructor
+
+  
+  e.g.
+
+  datatype 'a option = NONE | SOME of 'a
+
+  datatype 'a mylist = Empty | Cons of 'a * 'a mylist
+
+  datatype 'a ('a, 'b) tree = 
+    Node of 'a * ('a, 'b) tree * ('a , 'b) tree
+  | Leaf of 'b
+
+# val binding pattern matching
+
+syntax:
+  val v(p) = e
+
+Infact, variable is a pattern.
+
+can use this for extract all pieces out of an each of type.
+
+pool style to do this in constructor style. (case ...)
+
+e.g.
+
+ val (x, y, z) = (1, 2, 3)
+
+# equality type
+
+  ''a list * ''a -> boo;
+
+  ''a must be a equality type(Can use equal to compare things.).
+
+# case expresstion without constructor, only data type matching
+
+syntax:
+
+  case e0 of
+    p1 => e1
+    pn => en
+
+type checking:
+
+  if e0 match pn then execute en in extract environment ( val pn = en; is added).
+  e0 => t
+  all branch en must have t type.
+
+evaluation:
+
+  if e0 match pn then execute en in extract environment ( val pn = en; is added)
+  e0 => v0
+
+# _ can represent random type in case expresstion
+
+# special patern
+
+a::b::c::d
+a::b::c::[]
+((a,b),(c,d))::e
+
+
+# fun in ML always take only one argument, usng pattern matching to do extended variable into environment
+  
 
 # Elixir
 
@@ -342,6 +448,9 @@ or == ||
 
 For elixir, both are short-circuit operators. They only execute the right side if the left side is not enough to determine the result.
 
+
 #h/k
 1. max value of +-*/ tree
 2. sum of link structure
+undecreasing?
+zip, unzip, multign
