@@ -1,0 +1,17 @@
++++
+date = "2016-08-15T18:27:06+08:00"
+draft = true
+title = "mysql"
+
++++
+
+high performance mysql
+
+adding index
+
+#seperate column for mysql using index
+
+#prefix index
+caculate average selectivity and individual selectivity for choosing prefix index length.
+can not be used in group by and order by.
+

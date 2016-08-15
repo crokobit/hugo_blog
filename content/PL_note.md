@@ -25,7 +25,7 @@ type checking: on the base of the previous type binding of the static environmen
 
 evaluate:  in dynamic environment, with all previous binding values. determine the value of e0. the value of x0 is e0.
 
-Data With Type, Variable, Case When Else(Conditionals), If Else... all can defined by syntax, type checking rule, and evaluate rule.
+Data With Type, Variable, Case When Else(Conditionals), If Else... all can defined by syntax, type checking rule, and evaluation rule.
 
 # How to add a sequence of binding
 
@@ -127,7 +127,7 @@ null, list == [] ? true : false
 hd, first element of list
 tl, list without first element
 
-# Let
+# Let (local bindings)
 
 it lets us have local bindings of any sort, including function bindings. Because it is a kind
 of expression, it can appear anywhere an expression can.
@@ -195,7 +195,7 @@ syntax:
 type checking:
   e -> t
   t must be option type
-  if e is NONE -> 
+  if e is NONE -> raise exception?
   if e is SOME (t option) -> type is t
 
 evaluate
@@ -236,7 +236,7 @@ A function may return a aliasing data or a copy of data. We can not knowing whic
 
 If that languange have mutation, programmer need to consider that changing a value may effect other code, or the value may be changed by other code.
 
-Also, in mutation language
+In mutation language it will not like this.
 
 # datatype binding
 
@@ -253,7 +253,7 @@ Also, in mutation language
 
 syntax:
 
-{ f1: e1, f2: e2 ... , fn:en }
+{ f1 = e1, f2 = e2 ... , fn = en }
 
 f1, f2... fn must be uniq
 
@@ -271,6 +271,8 @@ the value of whole -> { f1:v1, ... fn:vn }
 acessing
 
 `#f1 e`
+
+will raise error if no f1 key in e.
 
 # syntax suger
 
@@ -292,7 +294,7 @@ datatype dt1 = c1 of t1
 cn is constructor, it is a function turn the data to dt1 type.
 e.g. c1 : t1 -> dt1
 
-# constructor
+# define datatype (one of type)
 datatype dt1 = c1 of t1
              | cn of tn
 
@@ -342,7 +344,7 @@ syntax:
   at1 is type alias name;
   t1 -> type 1
 
-# value binding with type checking
+# value binding with type checking (strange~ no use?)
 
 syntax:
   
@@ -364,11 +366,11 @@ case intoption of
 
 # [] and :: are constructor of list type
 
-# list are option are constructor that take parameter to construct type
+# list are option are constructor that take parameter to construct type(value?)
 
 # polymorphic datatype
 
-datatype that take more than two constructor
+datatype that take more than two constructor(parameter?)
 
   
   e.g.
@@ -432,6 +434,30 @@ a::b::c::[]
 
 # fun in ML always take only one argument, usng pattern matching to do extended variable into environment
   
+# function pattern (syntax suger)
+
+fun f x =
+  case x of
+   p1 => e1
+   pn => en
+
+all equal except no x can be use in en
+
+fun f p1 => e1
+    | pn => en
+
+# exception binding
+
+exception Ex1 of type1
+
+raise (Ex1(e))
+e must have type1 
+
+e1 handle Ex1 => e2
+
+# call stack
+# tail call
+
 
 # Elixir
 
