@@ -14,4 +14,13 @@ adding index
 #prefix index
 caculate average selectivity and individual selectivity for choosing prefix index length.
 can not be used in group by and order by.
+can use this for hexadecimal indexing.
 
+#multicolumn indexing
+
+For multiple column query, Use single multicolumn index. Order matters. Indexes with one column can be combined for multiple column query after Mysql 5.0, known as index merge . However, you can use UNION to let Mysql use original single column index.
+
+This section applies to B-Tree indexes, by the way;
+hash and other index types don’t store their data in sorted order as B-Tree indexes do
+
+#165
