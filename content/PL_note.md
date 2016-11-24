@@ -352,7 +352,7 @@ syntax:
 
 type checking:
 
-  e has type t
+  e has type x
 
 evaluation:
 
@@ -388,7 +388,7 @@ datatype that take more than two constructor(parameter?)
 syntax:
   val v(p) = e
 
-Infact, variable is a pattern.
+In fact, variable is a pattern.
 
 can use this for extract all pieces out of an each of type.
 
