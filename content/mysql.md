@@ -73,6 +73,9 @@ title = "mysql"
 
 - [link](https://www.percona.com/forums/questions-discussions/mysql-and-percona-server/31575-2-questions-about-innodb_buffer_pool_size-parameter-on-rds)
   - Now to answer the question of "is X innodb_buffer_pool_size large enough for my server", that is more complex. You could have 1TB of data, but only access 1GB of it regularly, in which case you would only need a couple gigs in the buffer pool. Or you could have 20GB of data, and constantly access all of it, in which case you'd want as large a buffer pool as possible to cover the data + index size.
+  - Aside from that, to get an idea of how often MySQL cannot satisfy a read request from the InnoDB buffer pool and has to go to disk, you can use this calculation: (innodb_buffer_pool_reads / innodb_buffer_pool_read_requests) * 100. These two values come from "show global status", and will give you a percentage of reads that end up going to disk. So if you have a high percentage here, then that means your InnoDB buffer pool is not doing as much as it could be.
+  - To see how well your server is using the InnoDB buffer pool, you can check a few different areas. Run "show engine innodb status \G" and check to see if you have any free buffers. If you consistently have a large percentage of free buffers over time compared to the buffer pool size, then the buffer pool might be too large. Then in the same "show engine innodb status \G" output, look for "evicted without access X.XX/s". If that value is anything but 0, then your innodb_buffer_pool size is probably too small (basically it means data is getting loaded into the buffer pool but is never accessed again before it gets pushed out to make room for new data - a.k.a. buffer pool churn).
+  - Keep in mind that MySQL can use up a lot of memory in other ways, like with temp tables, so be careful not to over allocate the buffer pool and it up running out of memory later. That's why it is best to up the value in small increments so you can watch stability, and leave yourself a good cushion for when you get an unexpected load or your usage behavior changes all of a sudden (i.e. someone sets up an ETL job that is pumping out temp tables due to huge / poorly written queries).
 
 
 high performance mysql p.44
@@ -124,3 +127,5 @@ ORDER BY data_length desc) AS A<Paste>
 
 db1 index size: 112.78GB
 db1 innodb_buffer_pool_size size 108GB
+
+db3 original innodb_buffer_pool_size 24G, physical ram 44G
