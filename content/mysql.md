@@ -129,3 +129,7 @@ db1 index size: 112.78GB
 db1 innodb_buffer_pool_size size 108GB
 
 db3 original innodb_buffer_pool_size 24G, physical ram 44G
+
+p.87
+
+- Notice that “Sorting result” takes up a very small portion of the time, not enough to be worth optimizing. This is rather typical, which is why we encourage people not to spend time on “tuning the sort buffers” and similar activities.
