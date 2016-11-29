@@ -61,17 +61,6 @@ done
 echo Exiting because $RUNFILE does not exist.
 ```
 
-writing script to generate performance of every report with different range (1 day, 1 year).
-
-compare between v1 and v2(db3) and v2(db1)
-
-change the mysql config file and checking db performance by script. (query cache on and off, innodb_buffer_pool_size)
-
-to make sure the warm up is by table of by whole db. Run A query about 100 times to see the trend. Then run B query, see its trend (on staging). Also need to check the warm up time.
-
-check v2 1yr generating time is acceptable. By some statistics method.
-
-run sys-bench to check mysql server performance.
 
 
 ```
@@ -88,3 +77,48 @@ ORDER BY data_length desc) AS A<Paste>
 
 db1 index size: 112.78GB
 db1 innodb_buffer_pool_size size 108GB
+
+
+check v2 1yr generating time is acceptable. By some statistics method.
+
+[link](http://stackoverflow.com/questions/9620198/how-to-get-the-sizes-of-the-tables-of-a-mysql-database) Show table size belong to specific db.
+
+```
+SELECT 
+    table_name AS `Table`, 
+    round(((data_length + index_length) / 1024 / 1024), 2) `Size in MB` 
+FROM information_schema.TABLES 
+WHERE table_schema = "$DB_NAME"
+    AND table_name = "$TABLE_NAME";
+```
+
+show db size.
+```
+SELECT table_schema AS "Database name", SUM(data_length + index_length) / 1024 / 1024 /1024 AS "Size (GB)" FROM information_schema.TABLES GROUP BY table_schema;
+```
+
+show query now
+```
+```
+
+show variables
+```
+SHOW SESSION VARIABLES LIKE '%query%'
+```
+
+# benchmark SOP
+
+1. check there is no high cpu and ram usage passenger workers.
+2. check no long running query on db.
+3. queue is empty.
+4. run script.
+
+# Going to do
+
+1. change to mysql client to `active_record`
+2. [link](http://dev.mysql.com/doc/refman/5.7/en/analyze-table.html) Then rerun tests.
+
+# May
+
+- remove unnessary data out of slave. Some no use db or no use table.
+- partial replication
