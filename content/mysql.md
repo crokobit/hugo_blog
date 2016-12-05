@@ -106,6 +106,16 @@ show variables
 SHOW SESSION VARIABLES LIKE '%query%'
 ```
 
+show query cache status
+```
+SHOW STATUS LIKE 'Qcache%'
+```
+
+http://dba.stackexchange.com/questions/50905/mysql-stores-blob-in-innodb-buffer-pool-innodb-buffer-pool-size
+InnoDB will cache the page data you selected with select statement. Will not no selected cache data.
+
+SELECT from a table, and some number of the pages from that table's tablespace on disk will be loaded into the pool, but not usually all of them. Which pages depends on which rows you retrieve, what indexes are needed to find them, whether it's doing read-ahead, etc.
+
 # benchmark SOP
 
 1. check there is no high cpu and ram usage passenger workers.
@@ -122,3 +132,14 @@ SHOW SESSION VARIABLES LIKE '%query%'
 
 - remove unnessary data out of slave. Some no use db or no use table.
 - partial replication
+
+
+# 20161130 todo
+
+1. check putting data into innodb buffer pool is by queried data.
+  - quried different datarange for the v2(db3) now.
+  - restart db3
+  - queried with on date range.
+  - queried with another date range.
+2. analysis user behaviour.
+3. find out why mysql ram grow slowly.
