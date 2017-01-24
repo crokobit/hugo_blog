@@ -24,3 +24,6 @@ title = "react"
   - api
     - parseInt
     - substring
+
+- Redux
+  -[workflow](https://github.com/reactjs/redux/issues/653)
