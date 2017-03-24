@@ -163,3 +163,39 @@ d.then(function_fire_by_resolve, function_fire_by_reject);
 ```
 
 # Map
+
+
+# JS
+[undefined is undefined](https://pjchender.blogspot.tw/2015/12/javascript-undefinedundefined.html)
+  - `undefined` is a value.
+  - declaration without assign value will cause that the variable value is `undefined`.
+  - will get `Uncaught ReferenceError, xxx is not defined` if xxx is.
+  - `not defined` is different from `undefined`
+[hoisting](https://pjchender.blogspot.tw/2015/12/javascript-hoisting.html)
+  - js will move all declation to top of the codebase.
+  - below are declations
+    - var a;
+    - var a = 'xxd'; // declaration is placed to top but assign part isn't.
+    - function b(){}; // this is a function statement. to the top, code included. calling b() before declaration will get result.
+[function statements and function expressions](https://pjchender.blogspot.tw/2016/03/javascriptfunction-statements-and.html)
+  - function expression
+    ```
+      var sayGreet = function(){ console.log(hi); }
+    ```
+    - The variable will be hoisting but the code will not be hoisting. Calling sayGreet() before defining it will get `Uncaught TypeError: SayHello is not a function`. # NEED CHECK
+  - function statement
+    ```
+      function sayGreet(){ console.log(hi); }
+    ```
+  - sayGreet return code, sayGreet() return execute result
+  - function as function
+    ```
+      function log(a) { a() }
+      log(function(){ console.log('...'); });
+    ```
+[IIFES](https://pjchender.blogspot.tw/2016/05/javascriptiifesimmediately-invoked.html)
+  - var xxx = function(){}();
+  - return anonymous function instantly
+  - (function(){}());
+
+
