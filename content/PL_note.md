@@ -13,27 +13,27 @@ Functional programming is a series of binding.
 
 static environment(context) is the environment with previous type binding.
 
-dynamic environment is the environment with previous value binding
+dynamic environment is the environment with previous value binding.
 
-The type checking execute in static environment. The evaluate execute in dynamic environment.
+The type checking execute in static environment. The evaluation is triggered in dynamic environment.
 
 # variable binding
 
 syntax: `val x0 = e0`
 
-type checking: on the base of the previous type binding of the static environment, determine the type of e0. x0 is the type of e0.
+type checking: Based on previous type binding in static environment, determine the type of e0. x0 is the type of e0.
 
-evaluate:  in dynamic environment, with all previous binding values. determine the value of e0. the value of x0 is e0.
+evaluation: In dynamic environment with all previous binding values, determine the value of e0. the value of x0 is e0.
 
 Data With Type, Variable, Case When Else(Conditionals), If Else... all can defined by syntax, type checking rule, and evaluation rule.
 
-# How to add a sequence of binding
+# How to add a sequence of binding in a file
 
 `use "foo.sml";`
 
 # Variables is immuatable
 Can not assign value to a variable, which is defined with binding.
-Can bind a same variable to a new value, that called 'shadow'
+Can bind same variable to another new value. This is called 'shadow'
 
 # function binding
 
@@ -41,53 +41,51 @@ syntax:
 
 fun x0 (x1:t1, x2:t2... xn:tn) = e
 
-type checking: 
+## Type checking
 
-xn is of the type tn. 
+- xn is of the type tn. 
+- The syntax of a function type is “argument types” -> “result type” where the argument types are separated by * 
+- x0 is the type of (t1 * t2 * ... * tn) => t
+- Determination of e type t is in the static environment extended (previous type binding) with the all xn type binding. 
+- A function is a value — we simply add x0 to the environment as a function that can be called later. As expected for recursion, x0 is in the dynamic environment in the function body and for subsequent bindings ??? (but not, unlike in say Java, for preceding bindings, so the order you define functions is very important).
 
-The syntax of a function type is “argument types” -> “result type” where the argument types are separated by * 
-
-Determine e type t in the static environment extended (previous type binding) with the all xn type binding. 
-
-x0 is the type of (t1 * t2 * ... * tn) => t
-
-A function is a value — we simply add x0 to the environment as a function that can be called later. As expected for recursion, x0 is in the dynamic environment in the function body and for subsequent bindings (but not, unlike in say Java, for preceding bindings, so the order you define functions is very important).
-
-Exactly which environment is it we extend with the arguments? The environment that “was current” when the function was defined, not the one where it is being called. This distinction will not arise right now, but we will discuss it in great detail later.
+- ??? Exactly which environment is it we extend with the arguments? The environment that “was current” when the function was defined, not the one where it is being called. This distinction will not arise right now, but we will discuss it in great detail later.
 
 # Pairs and Other Tuples
 
 pairs, tuples
 
-syntax:
+## Syntax:
 
+```
 (e1, e2, e3, .. ,en)
+```
 
-type checking rule:
+## Type checking
 
+```
 en -> tn
 
 the type of typle = (t1 * t2 * ... * tn)
+```
 
-evaluate rule:
+## Evaluation
 
+```
 It is value.
+```
 
-# access tuple
+# Access tuple
 
-syntax: 
+## Syntax
+  - #1 e
 
- #1 e
+  - Using pair to return an answer that has two parts. This is quite pleasant in ML, whereas in Java (for example) returning two integers from a function requires defining a class, writing a constructor, creating a new object, initializing its fields, and writing a return statement.
 
-# return using pair
+# List
 
-Using pair to return an answer that has two parts. This is quite pleasant in ML, whereas in Java (for example) returning two integers from a function requires defining a class, writing a constructor, creating a new object, initializing its fields, and writing a return statement.
-
-# list
-
-Arbitrary data length, but need to be same data type, write the type of list as `t list`
-
-Functions that make and use lists are almost always recursive because a list has an unknown length. To write a recursive function, the thought process involves thinking about the base case — for example, what should the answer be for an empty list — and the recursive case — how can the answer be expressed in terms of the answer for the rest of the list.
+- Arbitrary data length, but need to be same data type, write the type of list as `t list`
+- Functions that make and use lists are almost always recursive because a list has an unknown length. To write a recursive function, the thought process involves thinking about the base case — for example, what should the answer be for an empty list — and the recursive case — how can the answer be expressed in terms of the answer for the rest of the list.
 
 # Empty List
 
