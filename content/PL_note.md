@@ -89,76 +89,61 @@ It is value.
 
 # Empty List
 
-syntax:
+- syntax: []
+- type checking:
+```
+  ’a list
+  ’a = any type t
+  can be any type t list.
+```
 
-[]
+# value(element) onto list (cons)
 
-type checking:
- 
-’a list
-,a = any type t
-can be any type t list.
+- syntax: e1 :: e2
+- type checking rule: 
+```
+  e1 -> t1
+  e2 -> t2
+```
+  * e2 is a list with type `t list`
+  * e1 has type t
 
-# value(element) onto list
-
-syntax: e1 :: e2
-
-type checking rule: 
-
-e1 -> t1
-e2 -> t2
-
-e2 is a list with type `t list`
-
-e1 has t
-
-evaluate rule:
-
+- evaluate rule:
+```
 e1 -> v1
 e2 -> v2
-
-return a list with first element is v1 and others is the elements of v2 list.
+```
+  * return a list with first element is v1 and others is the elements of v2 list.
 
 # functions of list
 
-null, list == [] ? true : false
-hd, first element of list
-tl, list without first element
+- null, list == [] ? true : false
+- hd, first element of list, raise execption if it is empty.
+- tl, list without first element, raise execption if it is empty.
+- e1::e2    e1 cons on e2, e1 has type t, e2 has type t list.
 
 # Let (local bindings)
 
-it lets us have local bindings of any sort, including function bindings. Because it is a kind
-of expression, it can appear anywhere an expression can.
+- it lets us have local bindings of any sort, including function bindings. Because it is a kind of expression, it can appear anywhere an expression can. WHY?
+- This is the concept of local variable and scope comes in.
 
-This is the concept of local variable and scope comes in.
+- syntax: let b1 b2 ... bn in e end
+- type checking:
+```
+  bn(binding n) -> tn
+```
+  * b2 can use b1 type binding
+  * extend static environment with bn, determine e type in this environment.
+  * the let expresstion has type same as e.
 
-syntax:
 
-let b1 b2 ... bn in e end
-
-type checking:
-
-bn(binding n) -> tn
-
-b2 can use b1 type binding
-
-extend static environment with bn, determine e type in this environment.
-
-the let expresstion has type same as e.
-
-evaluate:
-
-bn(binding n) -> vn
-
-b2 can use b1 variable binding
-
-extend dynamic environment with vn, determine e value in this environment.
-
-the let expresstion has value same as e.
-
-# Let
-
-This technique — define a local function that uses other variables in scope — is a hugely common and convenient thing to do in functional programming. It is a shame that many non-functional languages have little or no support for doing something like it.
+- evaluate:
+```
+  bn(binding n) -> vn
+```
+  * b2 can use b1 variable binding
+  * extend dynamic environment with vn, determine e value in this environment.
+  * the let expresstion has value same as e.
 
 # Option NONE
 
