@@ -1,0 +1,17 @@
+- http://guides.rubyonrails.org/active_record_querying.html#group
+- nested raise condition.
+  - Tranction is for allowing subtranction commit successfully when larger one has error.
+- looks like create within one tranction will be ???
+- batch update using `update`
+  - https://cbabhusal.wordpress.com/2015/01/03/updating-multiple-records-at-the-same-time-rails-activerecord/
+  - http://stackoverflow.com/questions/28694498/is-there-anything-like-batch-update-in-rails
+- bulk insert
+  - http://weblog.jamisbuck.org/2015/10/10/bulk-inserts-in-activerecord.html
+  - https://github.com/zdennis/activerecord-import
+  - http://stackoverflow.com/questions/2509320/saving-multiple-objects-in-a-single-call-in-rails
+    -  parents = Foo.create([{ :first_name => 'Jamie' }, { :first_name => 'Jeremy' }])
+- main idea for find_or_initialize
+  - http://stackoverflow.com/questions/5161958/more-efficient-find-or-create-multiple-records-in-rails
+- special
+  - https://ihower.tw/rails/activerecord-others.html#sec1
+
