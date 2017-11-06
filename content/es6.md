@@ -19,6 +19,20 @@ function(x1, x2){
 
 - can ignore () if just have one parameter.
 
+- when defining multi line function, we can have no return keyword by change {} to (), () is treated as a expression
+e.g.
+```
+  f1 = () => { 
+    return 'A' 
+  }
+```
+is same as 
+```
+  f1 = () => ( 
+    'A' 
+  )
+```
+
 # let, const
 
 - var defined global variable
@@ -110,7 +124,7 @@ tag(string);
   - add `export` before function or var
   - add `export {function_1, var_1}` at last line
 - import
-  - `import * as additon from ''` `addtion.function_1`
+  - `import * as additon from ''`         used by `addtion.function_1`
   - `import {function_1, var_1}`
   - `import {function_1 as addTwo, var_1}`
 
