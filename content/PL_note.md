@@ -124,7 +124,7 @@ e2 -> v2
 
 # Let (local bindings)
 
-- it lets us have local bindings of any sort, including function bindings. Because it is a kind of expression, it can appear anywhere an expression can. WHY?
+- it lets us have local bindings of any sort, including function bindings. Because it is a kind of expression, it can appear anywhere an expression can.
 - This is the concept of local variable and scope comes in.
 
 - syntax: let b1 b2 ... bn in e end
@@ -168,8 +168,7 @@ type checking:
 
 evaluate
   e -> v
-  v
-
+  v 
 # Option valOf
 
 syntax:
@@ -219,7 +218,7 @@ A function may return a aliasing data or a copy of data. We can not knowing whic
 
 If that languange have mutation, programmer need to consider that changing a value may effect other code, or the value may be changed by other code.
 
-In mutation language it will not like this.
+In mutation language it will not be like this.
 
 # datatype binding
 
@@ -277,12 +276,11 @@ datatype dt1 = c1 of t1
 cn is constructor, it is a function turn the data to dt1 type.
 e.g. c1 : t1 -> dt1
 
-# define datatype (one of type)
+# define datatype (one of type) ???
 datatype dt1 = c1 of t1
              | cn of tn
 
-cn is a constructor of type tn -> dt1
-if no 'of tn', just 'cn', then cn is a value of type dt1
+cn is a constructor of type tn -> dtn
 
 syntax:
 
@@ -290,15 +288,29 @@ e1 = c1 ev
 
 type checking:
 
-e1 has type dt1
+ev has type dt1
 
 value:
 
 e1 has value "c1 ev"
 c1 as tag
 
-# pattern matching case with data type binding (customized one of type) (constructor pattern)
+# Access to Datatype Values: Case Expressions
+- pattern matching case with data type binding  (constructor pattern)
 
+```
+datatype mytype = TwoInts of int * int
+| Str of string
+| Pizza
+
+fun f x = (* f has type mytype -> int *)
+case x of
+Pizza => 3
+| TwoInts(i1,i2) => i1 + i2
+| Str s => String.size s
+```
+
+# Case pattern maching
 syntax:
 
 case e0 of
@@ -308,8 +320,8 @@ case e0 of
 type checking:
 
   pn is pattern n, using constructor and variable to define
-  pn can set variable type binding in en
-  e1 .. en should have same type
+  pn can set variable type binding in en ??
+  e1 .. en should be same type
 
 evaluation
   e0 => v0
@@ -341,15 +353,26 @@ evaluation:
 
   e -> v
 
-# NONE and SOME are constructor of option type !
+# constructor
+- a function for creating values of the new type
+- or the new type value itself
+```
+REPL
+datatype mytype = TwoInt of int*int | String of string | T1;
+
+TwoInt (2,2)
+val it = TwoInt(2.2):mytype
+T1
+val it=T1:mytype;
+```
+
+- NONE and SOME are constructor of option type !
 
 case intoption of
   NONE => 0
   SOME i => i
-
-# [] and :: are constructor of list type
-
-# list are option are constructor that take parameter to construct type(value?)
+- [] and :: are constructor of list type
+- list and option are constructor that take parameter to construct type(value?) ???
 
 # polymorphic datatype
 
@@ -371,9 +394,9 @@ datatype that take more than two constructor(parameter?)
 syntax:
   val v(p) = e
 
-In fact, variable is a pattern.
+In fact, variables here is pattern.
 
-can use this for extract all pieces out of an each of type.
+we can use this for extract all pieces out of an each of type.
 
 pool style to do this in constructor style. (case ...)
 
@@ -392,8 +415,8 @@ e.g.
 syntax:
 
   case e0 of
-    p1 => e1
-    pn => en
+      p1 => e1
+    | pn => en
 
 type checking:
 
@@ -407,6 +430,7 @@ evaluation:
   e0 => v0
 
 # _ can represent random type in case expresstion
+- A wildcard pattern (_) matches any value v and introduces no bindings.
 
 # special patern
 
@@ -457,6 +481,15 @@ or == ||
 
 For elixir, both are short-circuit operators. They only execute the right side if the left side is not enough to determine the result.
 
+# pattern maching
+- A variable pattern (x) matches any value v and introduces one binding (from x to v).
+- The pattern C matches the value C, if C is a constructor that carries no data.
+- The pattern C p where C is a constructor and p is a pattern matches a value of the form C v (notice
+- the constructors are the same) if p matches v (i.e., the nested pattern matches the carried value). It
+introduces the bindings that p matching v introduces.
+- The pattern (p1,p2,...,pn) matches a tuple value (v1,v2,...,vn) if p1 matches v1 and p2 matches
+v2, ..., and pn matches vn. It introduces all the bindings that the recursive matches introduce.
+- (A similar case for record patterns of the form {f1=p1,...,fn=pn} ...)
 
 #h/k
 1. max value of +-*/ tree

@@ -135,6 +135,7 @@ tag(string);
 - import
   - `import default as function_x, { named_function } from ''`
   - `import function_x, { named_function } from ''`
+  - import filename from filename  --> use default function by `filename()`
 
 # Array.from
 - turn Array Like obj into Array for using `forEach` and `filter` etc.
