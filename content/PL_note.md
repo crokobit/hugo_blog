@@ -491,6 +491,18 @@ introduces the bindings that p matching v introduces.
 v2, ..., and pn matches vn. It introduces all the bindings that the recursive matches introduce.
 - (A similar case for record patterns of the form {f1=p1,...,fn=pn} ...)
 
+# L3
+
+# first-class functions
+- function is a value
+- can put it wherever a value can put.
+
+# high-order function 
+- pass a function as an argument to another function or as a result of another function. The function takes or returns another function called 'high-order function'
+
+# function closures
+- functions than can use bindings from outside the function definition 
+
 #h/k
 1. max value of +-*/ tree
 2. sum of link structure
